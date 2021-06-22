@@ -1,4 +1,4 @@
-package controllers.topPage;
+package controllers.employees;
 
 import java.io.IOException;
 
@@ -9,16 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/index.html")
-public class TopPageIndexServlet extends HttpServlet {
+import models.Employee;
+
+@WebServlet("/employees/new")
+public class EmployeesNewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public TopPageIndexServlet() {
+    public EmployeesNewServlet() {
         super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
+        request.setAttribute("_token",request.getSession().getId());
+        request.setAttribute("employee", new Employee());
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/new.jsp");
         rd.forward(request, response);
     }
 
